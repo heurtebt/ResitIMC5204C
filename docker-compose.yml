@@ -1,0 +1,39 @@
+version: "3.7"
+
+services:
+    api:
+        build:
+            context: ./services
+        restart: always
+        container_name: services
+        ports:
+            - "5000:5000"
+        depends_on:
+            - api_database
+            - api_interface
+        links:
+            - api_database
+            - api_interface
+        env_file:
+            - .env
+    api_database:
+        image: mysql:5.7.27
+        restart: always
+        command: '--explicit_defaults_for_timestamp'
+        container_name: api_database
+        ports:
+            - "3306:3306"
+        volumes:
+            - ./database/data:/var/lib/mysql
+            - ./database:/src/database
+        env_file:
+            - .env
+    api_interface:
+      build:
+        context: ./ui
+      restart: always
+      container_name : ui
+      ports:
+        -"3000:3000"
+      env_file:
+        - .env
