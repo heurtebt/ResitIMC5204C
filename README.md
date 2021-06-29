@@ -9,7 +9,7 @@ A. From ui folder :
       - npm run build
       - serve -s build -l 3000
 
-B. From the services folder :
+B. From the service folder :
    1. Open a terminal
    2. Run the following commands:
       - virtualenv -p Python3 .
